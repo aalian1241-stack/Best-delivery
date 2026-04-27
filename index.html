@@ -3,168 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aalian's Pindi Express</title>
+    <title>Bunny Food Delivery | Aalian</title>
     <style>
         :root {
-            --primary: #00d2ff;
-            --success: #25D366;
-            --bg: #0b0f19;
-            --card: #161e2d;
-            --accent: #ffce00;
+            --bunny-orange: #ff7e5f;
+            --bunny-white: #ffffff;
+            --bunny-dark: #2d3436;
+            --whatsapp-green: #25D366;
+            --price-yellow: #ffce00;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg);
-            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: var(--bunny-dark);
             margin: 0;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
         }
 
+        /* Branding Header */
         .header {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            padding: 25px 20px;
+            background: linear-gradient(135deg, var(--bunny-orange), #feb47b);
+            padding: 35px 20px;
             text-align: center;
-            border-bottom: 3px solid var(--accent);
+            color: white;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .market-badge {
-            font-size: 0.7rem;
-            background: rgba(255,255,255,0.1);
-            padding: 2px 10px;
-            border-radius: 10px;
-            color: var(--primary);
+        .bunny-logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .delivery-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Menu Section */
+        .menu-title {
+            padding: 20px;
+            font-weight: bold;
+            color: var(--bunny-orange);
+            display: flex;
+            justify-content: space-between;
         }
 
         .price-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 20px;
+            gap: 15px;
+            padding: 0 20px 20px;
         }
 
-        .price-card {
-            background: var(--card);
+        .item-card {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .item-card:active {
+            border-color: var(--bunny-orange);
+            transform: scale(0.95);
+        }
+
+        .item-card b { display: block; font-size: 1rem; margin: 5px 0; }
+        .item-card span { color: var(--bunny-orange); font-weight: 900; }
+
+        /* Order Form */
+        .form-container {
+            margin: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            background: #fdfdfd;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .bill-box {
+            background: #fff9f0;
             padding: 15px;
             border-radius: 15px;
-            border: 1px solid #2d3748;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .price-card:active { border-color: var(--accent); transform: scale(0.95); }
-        .price-card b { display: block; font-size: 1.1rem; margin-top: 5px; }
-        .price-card span { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
-
-        .form-section { padding: 0 20px; }
-        
-        .glass-input {
-            width: 100%;
-            background: var(--card);
-            border: 1px solid #2d3748;
-            padding: 14px;
-            border-radius: 12px;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .total-preview {
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 10px 0;
-            border-left: 4px solid var(--accent);
+            border: 1px dashed var(--bunny-orange);
+            margin-bottom: 20px;
         }
 
         .order-btn {
             width: 100%;
-            background: var(--success);
+            background: var(--whatsapp-green);
             color: white;
             padding: 18px;
-            border-radius: 15px;
-            font-weight: bold;
             border: none;
+            border-radius: 15px;
             font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
+
+        .order-btn:active { transform: scale(0.98); opacity: 0.9; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <span class="market-badge">Rawalpindi Live Rates 📍</span>
-        <h1 style="margin:5px 0;">AALIAN'S EXPRESS</h1>
-        <small style="color:var(--accent)">Delivery: Fixed 20 RS</small>
+        <div class="bunny-logo">🐰</div>
+        <h1 style="margin:0; font-size: 1.8rem;">BUNNY FOOD</h1>
+        <p style="margin: 5px 0 15px;">Fastest Delivery in Pindi</p>
+        <span class="delivery-tag">Delivery: Rs. 20 (Fixed)</span>
+    </div>
+
+    <div class="menu-title">
+        <span>Today's Market Rates</span>
+        <span style="font-size: 0.7rem; color: #999;">Updated: Rawalpindi</span>
     </div>
 
     <div class="price-grid">
-        <div class="price-card" onclick="selectItem('Milk 🥛', 210)">
-            <span>🥛 Milk</span>
-            <b>210 RS / Litre</b>
+        <div class="item-card" onclick="pick('Milk 🥛', 210)">
+            <b>Milk</b>
+            <span>Rs. 210/L</span>
         </div>
-        <div class="price-card" onclick="selectItem('Eggs 🥚', 280)">
-            <span>🥚 Eggs</span>
-            <b>280 RS / Dozen</b>
+        <div class="item-card" onclick="pick('Bread 🍞', 120)">
+            <b>Bread</b>
+            <span>Rs. 120/Lg</span>
         </div>
-        <div class="price-card" onclick="selectItem('Bread 🍞', 120)">
-            <span>🍞 Bread</span>
-            <b>120 RS / Large</b>
+        <div class="item-card" onclick="pick('Eggs 🥚', 280)">
+            <b>Eggs</b>
+            <span>Rs. 280/Dz</span>
         </div>
-        <div class="price-card" onclick="selectItem('Yogurt 🍚', 240)">
-            <span>🍚 Yogurt</span>
-            <b>240 RS / KG</b>
+        <div class="item-card" onclick="pick('Yogurt 🍚', 240)">
+            <b>Yogurt</b>
+            <span>Rs. 240/Kg</span>
         </div>
     </div>
 
-    <div class="form-section">
-        <input type="text" id="who" class="glass-input" placeholder="Aapka Naam (e.g. Ammi)">
-        <input type="text" id="what" class="glass-input" placeholder="Item ka naam">
-        <input type="number" id="qty" class="glass-input" placeholder="Quantity (e.g. 1, 2, 5)" oninput="updateTotal()">
-        
-        <div class="total-preview">
-            Item Total: <span id="itemPrice">0</span> RS<br>
-            Delivery: <span id="delPrice">20</span> RS<br>
-            <strong style="color:var(--accent)">Grand Total: <span id="grandTotal">0</span> RS</strong>
+    <div class="form-container">
+        <input type="text" id="custName" class="input-field" placeholder="Kiske liye? (e.g. Ammi)">
+        <input type="text" id="itemName" class="input-field" placeholder="Item ka naam">
+        <input type="number" id="itemQty" class="input-field" placeholder="Quantity (e.g. 1, 2)" oninput="calc()">
+
+        <div class="bill-box">
+            <div style="display: flex; justify-content: space-between;">
+                <span>Item Total:</span>
+                <span id="priceTotal">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                <span>Bunny Fee:</span>
+                <span>20</span>
+            </div>
+            <hr style="border: 0.5px solid #eee;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--bunny-orange);">
+                <span>GRAND TOTAL:</span>
+                <span>Rs. <span id="grandTotal">0</span></span>
+            </div>
         </div>
 
-        <button class="order-btn" onclick="sendWhatsApp()">SEND ORDER VIA WHATSAPP</button>
+        <button class="order-btn" onclick="sendOrder()">
+            SEND ORDER VIA WHATSAPP 📲
+        </button>
     </div>
 
     <script>
-        let selectedRate = 0;
+        let currentRate = 0;
 
-        function selectItem(name, rate) {
-            document.getElementById('what').value = name;
-            selectedRate = rate;
-            updateTotal();
+        function pick(name, rate) {
+            document.getElementById('itemName').value = name;
+            currentRate = rate;
+            calc();
         }
 
-        function updateTotal() {
-            let q = document.getElementById('qty').value || 0;
-            let itemTotal = selectedRate * q;
-            document.getElementById('itemPrice').innerText = itemTotal;
-            document.getElementById('grandTotal').innerText = itemTotal > 0 ? (itemTotal + 20) : 0;
+        function calc() {
+            let q = document.getElementById('itemQty').value || 0;
+            let subtotal = currentRate * q;
+            document.getElementById('priceTotal').innerText = subtotal;
+            document.getElementById('grandTotal').innerText = subtotal > 0 ? (subtotal + 20) : 0;
         }
 
-        function sendWhatsApp() {
-            const name = document.getElementById('who').value || "Ghar wale";
-            const item = document.getElementById('what').value;
-            const q = document.getElementById('qty').value || 1;
+        function sendOrder() {
+            const name = document.getElementById('custName').value || "Family";
+            const item = document.getElementById('itemName').value;
+            const q = document.getElementById('itemQty').value || 1;
             const total = document.getElementById('grandTotal').innerText;
-            
-            if(!item || q <= 0) return alert("Item aur quantity sahi daalein!");
+            const phone = "923125438331";
 
-            const msg = `*Aalian Express - NEW ORDER*%0A` +
+            if(!item || q <= 0) return alert("Bunny ko batayein toh sahi kya lana hai!");
+
+            const msg = `*🐰 BUNNY FOOD DELIVERY*%0A` +
                         `--------------------------%0A` +
                         `👤 *Customer:* ${name}%0A` +
                         `📦 *Item:* ${item}%0A` +
-                        `🔢 *Qty:* ${q}%0A` +
-                        `💵 *Bill:* ${selectedRate * q} RS%0A` +
-                        `🚀 *Delivery:* 20 RS%0A` +
-                        `💰 *TOTAL PAYABLE:* ${total} RS%0A` +
+                        `🔢 *Quantity:* ${q}%0A` +
                         `--------------------------%0A` +
-                        `_Pindi Market Rates Applied_`;
+                        `💵 *Bill:* ${currentRate * q} RS%0A` +
+                        `🚀 *Bunny Fee:* 20 RS%0A` +
+                        `💰 *TOTAL:* ${total} RS%0A` +
+                        `--------------------------%0A` +
+                        `_Hoppin' fast to your door!_`;
 
-            window.open(`https://wa.me/923125438331?text=${msg}`, '_blank');
+            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
         }
     </script>
 </body>
