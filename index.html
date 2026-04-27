@@ -3,225 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bunny Food Delivery | Aalian</title>
+    <title>Aalian Express | Logistics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bunny-orange: #ff7e5f;
-            --bunny-white: #ffffff;
-            --bunny-dark: #2d3436;
-            --whatsapp-green: #25D366;
-            --price-yellow: #ffce00;
+            --brand-blue: #0ea5e9;
+            --brand-orange: #f97316;
+            --surface: #ffffff;
+            --bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
-            color: var(--bunny-dark);
-            margin: 0;
-            padding-bottom: 40px;
-        }
+        * { box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        /* Branding Header */
-        .header {
-            background: linear-gradient(135deg, var(--bunny-orange), #feb47b);
-            padding: 35px 20px;
-            text-align: center;
+        body { background-color: var(--bg); color: var(--text-main); margin: 0; padding-bottom: 40px; }
+
+        .nav { background: white; padding: 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+        .brand-name { font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; }
+        .brand-name span { color: var(--brand-blue); }
+
+        .status-banner { background: var(--brand-blue); color: white; padding: 12px; text-align: center; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; }
+
+        .section-title { padding: 30px 25px 15px; font-weight: 800; font-size: 1rem; color: var(--text-muted); text-transform: uppercase; }
+        .items-container { padding: 0 20px; }
+
+        .item-card { background: white; padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); border: 1px solid transparent; transition: 0.2s; }
+        .item-card:active { border-color: var(--brand-blue); transform: scale(0.98); }
+
+        .price-badge { background: #f0f9ff; color: var(--brand-blue); padding: 8px 15px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; }
+
+        .checkout-box { margin: 25px 20px; background: white; padding: 30px; border-radius: 30px; box-shadow: 0 20px 25px rgba(0, 0, 0, 0.05); }
+
+        input { width: 100%; padding: 16px; border-radius: 14px; border: 2px solid #f1f5f9; background: #f8fafc; font-size: 1rem; font-weight: 600; outline: none; margin-top: 5px; margin-bottom: 20px; }
+        input:focus { border-color: var(--brand-blue); background: white; }
+
+        .invoice { background: #0f172a; color: white; padding: 25px; border-radius: 24px; }
+        .grand-total { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); font-weight: 800; font-size: 1.4rem; }
+
+        .order-btn { width: 100%; background: var(--brand-orange); color: white; padding: 20px; border-radius: 18px; border: none; font-size: 1.1rem; font-weight: 800; margin-top: 20px; cursor: pointer; }
+
+        /* Timer Overlay Styles */
+        #timerOverlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 2000;
             color: white;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .bunny-logo {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .delivery-tag {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        /* Menu Section */
-        .menu-title {
-            padding: 20px;
-            font-weight: bold;
-            color: var(--bunny-orange);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .price-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 0 20px 20px;
-        }
-
-        .item-card {
-            background: white;
-            padding: 15px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
-            border: 2px solid transparent;
-            transition: 0.3s;
-        }
-
-        .item-card:active {
-            border-color: var(--bunny-orange);
-            transform: scale(0.95);
-        }
-
-        .item-card b { display: block; font-size: 1rem; margin: 5px 0; }
-        .item-card span { color: var(--bunny-orange); font-weight: 900; }
-
-        /* Order Form */
-        .form-container {
-            margin: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            background: #fdfdfd;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .bill-box {
-            background: #fff9f0;
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px dashed var(--bunny-orange);
-            margin-bottom: 20px;
-        }
-
-        .order-btn {
-            width: 100%;
-            background: var(--whatsapp-green);
-            color: white;
-            padding: 18px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            text-align: center;
         }
 
-        .order-btn:active { transform: scale(0.98); opacity: 0.9; }
+        .timer-circle {
+            width: 200px; height: 200px;
+            border: 8px solid var(--brand-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.4);
+        }
+
+        .close-timer { margin-top: 30px; color: var(--brand-orange); font-weight: 700; font-size: 0.9rem; text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="bunny-logo">🐰</div>
-        <h1 style="margin:0; font-size: 1.8rem;">BUNNY FOOD</h1>
-        <p style="margin: 5px 0 15px;">Fastest Delivery in Pindi</p>
-        <span class="delivery-tag">Delivery: Rs. 20 (Fixed)</span>
+    <div id="timerOverlay">
+        <h2 style="margin-bottom: 10px;">Order Dispatched!</h2>
+        <p style="opacity: 0.7; margin-bottom: 30px;">Arriving in approx.</p>
+        <div class="timer-circle" id="countdownDisplay">30:00</div>
+        <p style="padding: 0 40px; font-size: 0.9rem;">Please keep your phone active for the delivery agent.</p>
+        <div class="close-timer" onclick="closeTimer()">Back to Home</div>
     </div>
 
-    <div class="menu-title">
-        <span>Today's Market Rates</span>
-        <span style="font-size: 0.7rem; color: #999;">Updated: Rawalpindi</span>
+    <div class="status-banner">EXPRESS DELIVERY ACTIVE • RAWALPINDI</div>
+
+    <div class="nav">
+        <div class="brand-name">AALIAN <span>EXPRESS</span></div>
+        <div style="font-size: 1.2rem;">📦</div>
     </div>
 
-    <div class="price-grid">
-        <div class="item-card" onclick="pick('Milk 🥛', 210)">
-            <b>Milk</b>
-            <span>Rs. 210/L</span>
+    <div class="section-title">Available Inventory</div>
+    <div class="items-container">
+        <div class="item-card" onclick="selectItem('Fresh Milk', 230)">
+            <div class="item-details"><b>Fresh Milk</b><span>Pure Quality Dairy</span></div>
+            <div class="price-badge">230 / KG</div>
         </div>
-        <div class="item-card" onclick="pick('Bread 🍞', 120)">
-            <b>Bread</b>
-            <span>Rs. 120/Lg</span>
-        </div>
-        <div class="item-card" onclick="pick('Eggs 🥚', 280)">
-            <b>Eggs</b>
-            <span>Rs. 280/Dz</span>
-        </div>
-        <div class="item-card" onclick="pick('Yogurt 🍚', 240)">
-            <b>Yogurt</b>
-            <span>Rs. 240/Kg</span>
+        <div class="item-card" onclick="selectItem('Farm Eggs', 280)">
+            <div class="item-details"><b>Farm Eggs</b><span>Per Dozen</span></div>
+            <div class="price-badge">280 / DZ</div>
         </div>
     </div>
 
-    <div class="form-container">
-        <input type="text" id="custName" class="input-field" placeholder="Kiske liye? (e.g. Ammi)">
-        <input type="text" id="itemName" class="input-field" placeholder="Item ka naam">
-        <input type="number" id="itemQty" class="input-field" placeholder="Quantity (e.g. 1, 2)" oninput="calc()">
+    <div class="checkout-box">
+        <label>CLIENT NAME</label>
+        <input type="text" id="cName" placeholder="Enter name">
+        
+        <label>ORDER SPECIFICATION</label>
+        <input type="text" id="iName" placeholder="What do you need?">
+        
+        <label>QUANTITY (KG / UNIT)</label>
+        <input type="number" id="iQty" placeholder="1" oninput="calculate()">
 
-        <div class="bill-box">
-            <div style="display: flex; justify-content: space-between;">
-                <span>Item Total:</span>
-                <span id="priceTotal">0</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                <span>Bunny Fee:</span>
-                <span>20</span>
-            </div>
-            <hr style="border: 0.5px solid #eee;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--bunny-orange);">
-                <span>GRAND TOTAL:</span>
-                <span>Rs. <span id="grandTotal">0</span></span>
+        <div class="invoice">
+            <div class="grand-total">
+                <span>TOTAL BILL</span>
+                <span id="total">20 RS</span>
             </div>
         </div>
 
-        <button class="order-btn" onclick="sendOrder()">
-            SEND ORDER VIA WHATSAPP 📲
-        </button>
+        <button class="order-btn" onclick="placeOrder()">CONFIRM LOGISTICS ⚡</button>
     </div>
 
     <script>
         let currentRate = 0;
+        let timerInterval;
 
-        function pick(name, rate) {
-            document.getElementById('itemName').value = name;
-            currentRate = rate;
-            calc();
+        function selectItem(name, price) {
+            document.getElementById('iName').value = name;
+            currentRate = price;
+            calculate();
         }
 
-        function calc() {
-            let q = document.getElementById('itemQty').value || 0;
-            let subtotal = currentRate * q;
-            document.getElementById('priceTotal').innerText = subtotal;
-            document.getElementById('grandTotal').innerText = subtotal > 0 ? (subtotal + 20) : 0;
+        function calculate() {
+            let q = document.getElementById('iQty').value || 1;
+            document.getElementById('total').innerText = (currentRate * q + 20) + " RS";
         }
 
-        function sendOrder() {
-            const name = document.getElementById('custName').value || "Family";
-            const item = document.getElementById('itemName').value;
-            const q = document.getElementById('itemQty').value || 1;
-            const total = document.getElementById('grandTotal').innerText;
-            const phone = "923125438331";
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            document.getElementById('timerOverlay').style.display = 'flex';
+            
+            clearInterval(timerInterval);
+            timerInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
-            if(!item || q <= 0) return alert("Bunny ko batayein toh sahi kya lana hai!");
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            const msg = `*🐰 BUNNY FOOD DELIVERY*%0A` +
-                        `--------------------------%0A` +
-                        `👤 *Customer:* ${name}%0A` +
-                        `📦 *Item:* ${item}%0A` +
-                        `🔢 *Quantity:* ${q}%0A` +
-                        `--------------------------%0A` +
-                        `💵 *Bill:* ${currentRate * q} RS%0A` +
-                        `🚀 *Bunny Fee:* 20 RS%0A` +
-                        `💰 *TOTAL:* ${total} RS%0A` +
-                        `--------------------------%0A` +
-                        `_Hoppin' fast to your door!_`;
+                document.getElementById('countdownDisplay').textContent = minutes + ":" + seconds;
 
-            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('countdownDisplay').textContent = "00:00";
+                    alert("Your order should have arrived!");
+                }
+            }, 1000);
+        }
+
+        function closeTimer() {
+            document.getElementById('timerOverlay').style.display = 'none';
+            clearInterval(timerInterval);
+        }
+
+        function placeOrder() {
+            const item = document.getElementById('iName').value;
+            const final = document.getElementById('total').innerText;
+            if(!item) return alert("Select an item first.");
+
+            const whatsappMsg = `*AALIAN EXPRESS | ORDER*%0A*Item:* ${item}%0A*Total:* ${final}`;
+            window.open(`https://wa.me/923125438331?text=${whatsappMsg}`);
+
+            // Start 30-minute timer (30 * 60 seconds)
+            startTimer(30 * 60);
         }
     </script>
 </body>
