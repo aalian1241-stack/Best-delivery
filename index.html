@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aalian's Pindi Express</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --success: #25D366;
+            --bg: #0b0f19;
+            --card: #161e2d;
+            --accent: #ffce00;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            margin: 0;
+            padding-bottom: 30px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .market-badge {
+            font-size: 0.7rem;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 10px;
+            border-radius: 10px;
+            color: var(--primary);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .price-card {
+            background: var(--card);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #2d3748;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .price-card:active { border-color: var(--accent); transform: scale(0.95); }
+        .price-card b { display: block; font-size: 1.1rem; margin-top: 5px; }
+        .price-card span { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
+
+        .form-section { padding: 0 20px; }
+        
+        .glass-input {
+            width: 100%;
+            background: var(--card);
+            border: 1px solid #2d3748;
+            padding: 14px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .total-preview {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .order-btn {
+            width: 100%;
+            background: var(--success);
+            color: white;
+            padding: 18px;
+            border-radius: 15px;
+            font-weight: bold;
+            border: none;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span class="market-badge">Rawalpindi Live Rates 📍</span>
+        <h1 style="margin:5px 0;">AALIAN'S EXPRESS</h1>
+        <small style="color:var(--accent)">Delivery: Fixed 20 RS</small>
+    </div>
+
+    <div class="price-grid">
+        <div class="price-card" onclick="selectItem('Milk 🥛', 210)">
+            <span>🥛 Milk</span>
+            <b>210 RS / Litre</b>
+        </div>
+        <div class="price-card" onclick="selectItem('Eggs 🥚', 280)">
+            <span>🥚 Eggs</span>
+            <b>280 RS / Dozen</b>
+        </div>
+        <div class="price-card" onclick="selectItem('Bread 🍞', 120)">
+            <span>🍞 Bread</span>
+            <b>120 RS / Large</b>
+        </div>
+        <div class="price-card" onclick="selectItem('Yogurt 🍚', 240)">
+            <span>🍚 Yogurt</span>
+            <b>240 RS / KG</b>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <input type="text" id="who" class="glass-input" placeholder="Aapka Naam (e.g. Ammi)">
+        <input type="text" id="what" class="glass-input" placeholder="Item ka naam">
+        <input type="number" id="qty" class="glass-input" placeholder="Quantity (e.g. 1, 2, 5)" oninput="updateTotal()">
+        
+        <div class="total-preview">
+            Item Total: <span id="itemPrice">0</span> RS<br>
+            Delivery: <span id="delPrice">20</span> RS<br>
+            <strong style="color:var(--accent)">Grand Total: <span id="grandTotal">0</span> RS</strong>
+        </div>
+
+        <button class="order-btn" onclick="sendWhatsApp()">SEND ORDER VIA WHATSAPP</button>
+    </div>
+
+    <script>
+        let selectedRate = 0;
+
+        function selectItem(name, rate) {
+            document.getElementById('what').value = name;
+            selectedRate = rate;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let q = document.getElementById('qty').value || 0;
+            let itemTotal = selectedRate * q;
+            document.getElementById('itemPrice').innerText = itemTotal;
+            document.getElementById('grandTotal').innerText = itemTotal > 0 ? (itemTotal + 20) : 0;
+        }
+
+        function sendWhatsApp() {
+            const name = document.getElementById('who').value || "Ghar wale";
+            const item = document.getElementById('what').value;
+            const q = document.getElementById('qty').value || 1;
+            const total = document.getElementById('grandTotal').innerText;
+            
+            if(!item || q <= 0) return alert("Item aur quantity sahi daalein!");
+
+            const msg = `*Aalian Express - NEW ORDER*%0A` +
+                        `--------------------------%0A` +
+                        `👤 *Customer:* ${name}%0A` +
+                        `📦 *Item:* ${item}%0A` +
+                        `🔢 *Qty:* ${q}%0A` +
+                        `💵 *Bill:* ${selectedRate * q} RS%0A` +
+                        `🚀 *Delivery:* 20 RS%0A` +
+                        `💰 *TOTAL PAYABLE:* ${total} RS%0A` +
+                        `--------------------------%0A` +
+                        `_Pindi Market Rates Applied_`;
+
+            window.open(`https://wa.me/923125438331?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
